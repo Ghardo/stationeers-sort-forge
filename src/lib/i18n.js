@@ -161,7 +161,7 @@ function initialLocale() {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (LOCALES.includes(saved)) return saved
   } catch { /* ignore */ }
-  return navigator.language?.startsWith('de') ? 'de' : 'en'
+  return 'en'
 }
 
 export const locale = ref(initialLocale())
