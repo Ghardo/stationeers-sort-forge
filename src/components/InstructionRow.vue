@@ -5,6 +5,7 @@ import {
   instructionByOp, encode, validate, prefabHash,
 } from '../lib/sorter.js'
 import { t } from '../lib/i18n.js'
+import InfoTip from './InfoTip.vue'
 
 const props = defineProps({
   index: { type: Number, required: true },
@@ -24,11 +25,14 @@ const hash = computed(() => prefabHash(ins.value.prefab))
   <div class="row" :class="{ invalid: errors.length }">
     <span class="idx">{{ props.index }}</span>
 
-    <select v-model="ins.op" class="op">
-      <option v-for="i in INSTRUCTIONS" :key="i.op" :value="i.op">
-        {{ t(`op.${i.op}`) }}
-      </option>
-    </select>
+    <span class="op">
+      <select v-model="ins.op">
+        <option v-for="i in INSTRUCTIONS" :key="i.op" :value="i.op">
+          {{ t(`op.${i.op}`) }}
+        </option>
+      </select>
+      <InfoTip :text="t(`help.op.${ins.op}`)" />
+    </span>
 
     <div class="fields">
       <template v-for="f in def.fields" :key="f.key">
@@ -70,7 +74,7 @@ const hash = computed(() => prefabHash(ins.value.prefab))
 <style scoped>
 .row {
   display: grid;
-  grid-template-columns: 2rem 15rem 1fr 12rem auto;
+  grid-template-columns: 2rem 16.5rem 1fr 12rem auto;
   gap: 0.5rem;
   align-items: center;
   padding: 0.4rem 0.5rem;
@@ -79,6 +83,8 @@ const hash = computed(() => prefabHash(ins.value.prefab))
   background: var(--panel);
 }
 .row.invalid { border-color: var(--danger); }
+.op { display: flex; gap: 0.4rem; align-items: center; min-width: 0; }
+.op select { flex: 1; min-width: 0; }
 .idx { color: var(--accent); font-family: var(--mono); text-align: right; }
 .fields { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
 .prefab { display: flex; gap: 0.4rem; align-items: center; flex: 1; }

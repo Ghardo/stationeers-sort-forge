@@ -1,6 +1,7 @@
 <script setup>
 import { computed, reactive, ref, watch } from 'vue'
 import InstructionRow from './components/InstructionRow.vue'
+import InfoTip from './components/InfoTip.vue'
 import { importIc10 } from './lib/importer.js'
 import { t, locale, LOCALES } from './lib/i18n.js'
 import {
@@ -114,39 +115,39 @@ function applyImport() {
   <main>
     <section class="editor">
       <div class="panel settings">
-        <label>{{ t('settings.device') }}
+        <label>{{ t('settings.device') }} <InfoTip :text="t('help.device')" />
           <select v-model="config.device"><option v-for="d in devices" :key="d">{{ d }}</option></select>
         </label>
-        <label><input v-model="config.clear" type="checkbox" /> {{ t('settings.clear') }}</label>
-        <label><input v-model="config.setMode" type="checkbox" /> {{ t('settings.setMode') }}
+        <label><input v-model="config.clear" type="checkbox" /> {{ t('settings.clear') }} <InfoTip :text="t('help.clear')" /></label>
+        <label><input v-model="config.setMode" type="checkbox" /> {{ t('settings.setMode') }} <InfoTip :text="t('help.mode')" />
           <select v-model.number="config.mode" :disabled="!config.setMode">
             <option v-for="m in MODES" :key="m.value" :value="m.value">{{ m.value }} {{ t(`mode.${m.name}`) }}</option>
           </select>
         </label>
-        <label :class="{ disabled: config.compact }">{{ t('settings.register') }}
+        <label :class="{ disabled: config.compact }">{{ t('settings.register') }} <InfoTip :text="t('help.register')" />
           <select v-model="config.regA" :disabled="config.compact"><option v-for="r in registers" :key="r">{{ r }}</option></select>
           <select v-if="config.style === 'shift'" v-model="config.regB" :disabled="config.compact"><option v-for="r in registers" :key="r">{{ r }}</option></select>
         </label>
-        <label :class="{ disabled: config.compact }">{{ t('settings.style') }}
+        <label :class="{ disabled: config.compact }">{{ t('settings.style') }} <InfoTip :text="t('help.style')" />
           <select v-model="config.style" :disabled="config.compact">
             <option value="ins">{{ t('style.ins') }}</option>
             <option value="shift">{{ t('style.shift') }}</option>
           </select>
         </label>
-        <label :title="t('settings.compactHint')">
-          <input v-model="config.compact" type="checkbox" /> {{ t('settings.compact') }}
+        <label>
+          <input v-model="config.compact" type="checkbox" /> {{ t('settings.compact') }} <InfoTip :text="t('help.compact')" />
         </label>
-        <label><input v-model="config.comments" type="checkbox" /> {{ t('settings.comments') }}</label>
+        <label><input v-model="config.comments" type="checkbox" /> {{ t('settings.comments') }} <InfoTip :text="t('help.comments')" /></label>
       </div>
 
       <div class="toolbar">
-        <button @click="add('FilterPrefabHashEquals')">{{ t('add.prefab') }}</button>
-        <button @click="add('FilterSortingClassCompare')">{{ t('add.sortingClass') }}</button>
-        <button @click="add('FilterSlotTypeCompare')">{{ t('add.slotType') }}</button>
-        <button @click="add('FilterQuantityCompare')">{{ t('add.quantity') }}</button>
-        <button @click="add('LimitNextExecutionByCount')">{{ t('add.limit') }}</button>
+        <button :title="t('help.op.FilterPrefabHashEquals')" @click="add('FilterPrefabHashEquals')">{{ t('add.prefab') }}</button>
+        <button :title="t('help.op.FilterSortingClassCompare')" @click="add('FilterSortingClassCompare')">{{ t('add.sortingClass') }}</button>
+        <button :title="t('help.op.FilterSlotTypeCompare')" @click="add('FilterSlotTypeCompare')">{{ t('add.slotType') }}</button>
+        <button :title="t('help.op.FilterQuantityCompare')" @click="add('FilterQuantityCompare')">{{ t('add.quantity') }}</button>
+        <button :title="t('help.op.LimitNextExecutionByCount')" @click="add('LimitNextExecutionByCount')">{{ t('add.limit') }}</button>
         <span class="spacer" />
-        <button @click="openImport">{{ t('btn.import') }}</button>
+        <button :title="t('import.hint')" @click="openImport">{{ t('btn.import') }}</button>
         <button class="danger" @click="clearAll">{{ t('btn.clearAll') }}</button>
       </div>
 
@@ -171,7 +172,9 @@ function applyImport() {
       <div class="out-head">
         <h2>IC10</h2>
         <span class="stat" :class="{ bad: tooManyLines }">{{ t('out.lines', { n: lines.length, max: IC10_MAX_LINES }) }}</span>
+        <InfoTip :text="t('help.lines', { max: IC10_MAX_LINES, len: IC10_MAX_LINE_LENGTH })" />
         <span class="stat" :class="{ bad: tooManyInstructions }">{{ t('out.slots', { n: config.instructions.length, max: SORTER_MEMORY_SIZE }) }}</span>
+        <InfoTip :text="t('help.slots', { max: SORTER_MEMORY_SIZE })" />
         <button class="primary" :disabled="invalidCount > 0" @click="copy">{{ copied ? t('btn.copied') : t('btn.copy') }}</button>
       </div>
       <ul class="warnings">
@@ -230,7 +233,8 @@ main {
 .list { display: flex; flex-direction: column; gap: 0.4rem; }
 .empty { text-align: center; padding: 2rem; }
 .output { position: sticky; top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
-.out-head { display: flex; align-items: center; gap: 0.75rem; }
+.out-head { display: flex; align-items: center; gap: 0.4rem; }
+.out-head .stat { margin-left: 0.35rem; }
 .out-head h2 { margin: 0; font-size: 1.1rem; flex: 1; }
 .stat { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); }
 .stat.bad { color: var(--danger); }
