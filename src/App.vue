@@ -9,7 +9,7 @@ import {
 } from './lib/sorter.js'
 
 const STORAGE_KEY = 'stationeers-sorter-config'
-const REPO_URL = 'https://github.com/Ghardo/sort-forge'
+const REPO_URL = 'https://github.com/Ghardo/stationeers-sort-forge'
 
 function defaultConfig() {
   return {

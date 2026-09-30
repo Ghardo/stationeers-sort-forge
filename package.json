@@ -3,10 +3,10 @@
   "private": true,
   "license": "MIT",
   "author": "Ghardo",
-  "homepage": "https://ghardo.github.io/sort-forge/",
+  "homepage": "https://ghardo.github.io/stationeers-sort-forge/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ghardo/sort-forge.git"
+    "url": "git+https://github.com/Ghardo/stationeers-sort-forge.git"
   },
   "version": "0.1.0",
   "type": "module",
