@@ -4,7 +4,7 @@ A small web tool to build programs for the **Logic Sorter** in [Stationeers](htt
 
 Instead of shifting bits by hand, you pick the filter instructions in a list and copy the finished code into your IC chip.
 
-**Live:** https://ghardo.github.io/sort-forge/
+**Live:** https://ghardo.github.io/stationeers-sort-forge/
 
 ## Features
 
