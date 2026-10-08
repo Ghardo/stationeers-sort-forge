@@ -6,6 +6,9 @@ const STORAGE_KEY = 'stationeers-sorter-locale'
 const messages = {
   de: {
     'app.source': 'Quellcode auf GitHub',
+    'app.guide': 'Anleitung (Wiki)',
+    'app.docs': 'Dokumentation',
+    'app.wikiPage': 'Benutzeranleitung',
     'app.subtitle': 'Anweisungen für den Stationeers Logic Sorter zusammenstellen und als IC10-Code exportieren.',
 
     'settings.device': 'Gerät',
@@ -95,6 +98,9 @@ const messages = {
   },
   en: {
     'app.source': 'Source code on GitHub',
+    'app.guide': 'User guide (wiki)',
+    'app.docs': 'Documentation',
+    'app.wikiPage': 'User-Guide',
     'app.subtitle': 'Build instructions for the Stationeers Logic Sorter and export them as IC10 code.',
 
     'settings.device': 'Device',

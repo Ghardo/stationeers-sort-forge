@@ -11,6 +11,7 @@ import {
 
 const STORAGE_KEY = 'stationeers-sorter-config'
 const REPO_URL = 'https://github.com/Ghardo/stationeers-sort-forge'
+const wikiUrl = computed(() => `${REPO_URL}/wiki/${t('app.wikiPage')}`)
 
 function defaultConfig() {
   return {
@@ -102,6 +103,10 @@ function applyImport() {
   <header>
     <div class="title">
       <h1>SortForge <span>Logic Sorter IC10 Generator</span></h1>
+      <a class="guide" :href="wikiUrl" target="_blank" rel="noopener" :title="t('app.guide')">
+        <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M0 1.75A.75.75 0 0 1 .75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0 1 11.006 1h4.245a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75h-4.507a2.25 2.25 0 0 0-1.591.659l-.622.621a.75.75 0 0 1-1.06 0l-.622-.621A2.25 2.25 0 0 0 5.258 13H.75a.75.75 0 0 1-.75-.75Zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 0 0 5.003 2.5H1.5v9h3.757a3.75 3.75 0 0 1 1.994.574ZM8.755 4.75l-.004 7.322a3.752 3.752 0 0 1 1.992-.572H14.5v-9h-3.495a2.25 2.25 0 0 0-2.25 2.25Z"/></svg>
+        {{ t('app.docs') }}
+      </a>
       <a class="repo" :href="REPO_URL" target="_blank" rel="noopener" :title="t('app.source')" :aria-label="t('app.source')">
         <svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
       </a>
@@ -209,7 +214,21 @@ h1 { margin: 0; font-size: 1.6rem; color: var(--accent); letter-spacing: 0.02em;
 h1 span { color: var(--text); font-weight: 400; }
 header p { margin: 0.25rem 0 0; }
 .title { display: flex; align-items: center; gap: 1rem; }
-.repo { margin-left: auto; color: var(--muted); display: flex; }
+.repo { color: var(--muted); display: flex; }
+.guide {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.guide:hover { background: var(--accent); color: #1a1a1a; }
 .repo:hover { color: var(--accent); }
 .lang { display: flex; }
 .lang button { border-radius: 0; padding: 0.2rem 0.6rem; font-size: 0.8rem; }
