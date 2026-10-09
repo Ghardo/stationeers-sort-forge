@@ -5,7 +5,7 @@ import InfoTip from './components/InfoTip.vue'
 import { importIc10 } from './lib/importer.js'
 import { t, locale, LOCALES } from './lib/i18n.js'
 import {
-  createInstruction, generate, validate,
+  createInstruction, encode, generate, validate,
   IC10_MAX_LINES, IC10_MAX_LINE_LENGTH, SORTER_MEMORY_SIZE, MODES,
 } from './lib/sorter.js'
 
@@ -50,6 +50,8 @@ const invalidCount = computed(() => config.instructions.filter((i) => validate(i
 const longLines = computed(() => lines.value.filter((l) => l.length > IC10_MAX_LINE_LENGTH).length)
 const tooManyInstructions = computed(() => config.instructions.length > SORTER_MEMORY_SIZE)
 const tooManyLines = computed(() => lines.value.length > IC10_MAX_LINES)
+// register / style only matter if some instruction falls back to the long form
+const fullyCompact = computed(() => config.compact && config.instructions.every((i) => encode(i) !== null))
 
 // --- list editing ---
 function add(op) { config.instructions.push(createInstruction(op)) }
@@ -129,12 +131,12 @@ function applyImport() {
             <option v-for="m in MODES" :key="m.value" :value="m.value">{{ m.value }} {{ t(`mode.${m.name}`) }}</option>
           </select>
         </label>
-        <label :class="{ disabled: config.compact }">{{ t('settings.register') }} <InfoTip :text="t('help.register')" />
-          <select v-model="config.regA" :disabled="config.compact"><option v-for="r in registers" :key="r">{{ r }}</option></select>
-          <select v-if="config.style === 'shift'" v-model="config.regB" :disabled="config.compact"><option v-for="r in registers" :key="r">{{ r }}</option></select>
+        <label :class="{ disabled: fullyCompact }">{{ t('settings.register') }} <InfoTip :text="t('help.register')" />
+          <select v-model="config.regA" :disabled="fullyCompact"><option v-for="r in registers" :key="r">{{ r }}</option></select>
+          <select v-if="config.style === 'shift'" v-model="config.regB" :disabled="fullyCompact"><option v-for="r in registers" :key="r">{{ r }}</option></select>
         </label>
-        <label :class="{ disabled: config.compact }">{{ t('settings.style') }} <InfoTip :text="t('help.style')" />
-          <select v-model="config.style" :disabled="config.compact">
+        <label :class="{ disabled: fullyCompact }">{{ t('settings.style') }} <InfoTip :text="t('help.style')" />
+          <select v-model="config.style" :disabled="fullyCompact">
             <option value="ins">{{ t('style.ins') }}</option>
             <option value="shift">{{ t('style.shift') }}</option>
           </select>
